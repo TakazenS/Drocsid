@@ -1,0 +1,7 @@
+.serverList {
+    display: flex;
+    flex-direction: column;
+    width: 70px;
+    padding: 8px;
+    background-color: var(--bg-primary);
+}
