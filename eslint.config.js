@@ -26,6 +26,10 @@ export default defineConfig([
     },
     rules: {
       // Points-virgules partout où c'est possible
+      '@stylistic/indent': ['error', 2, { SwitchCase: 1 }],
+      '@stylistic/jsx-indent-props': ['error', 2],
+      '@stylistic/no-tabs': 'error',
+      '@stylistic/no-mixed-spaces-and-tabs': 'error',
       '@stylistic/semi': ['error', 'always'],
       '@stylistic/no-extra-semi': 'error',
       '@stylistic/member-delimiter-style': ['error', {
