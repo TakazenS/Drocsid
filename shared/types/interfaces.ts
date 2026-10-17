@@ -1,4 +1,4 @@
-import type { ChannelType, Id, UserStatus } from './types';
+import type { ChannelType, Id, UserStatus } from './types.ts';
 
 export interface User {
   id: Id;
