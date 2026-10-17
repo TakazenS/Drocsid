@@ -6,8 +6,8 @@ import styles from './App.module.css';
 function App() {
   return (
     <main className={styles.app}>
-        <ServerList />
-        <MainView />
+      <ServerList />
+      <MainView />
     </main>
   );
 }
