@@ -25,7 +25,6 @@ export default defineConfig([
       perfectionist,
     },
     rules: {
-      // Points-virgules partout où c'est possible
       '@stylistic/indent': ['error', 2, { SwitchCase: 1 }],
       '@stylistic/jsx-indent-props': ['error', 2],
       '@stylistic/no-tabs': 'error',
@@ -37,20 +36,19 @@ export default defineConfig([
         singleline: { delimiter: 'semi', requireLast: true },
       }],
 
-      // Imports triés alphabétiquement et par type
       'perfectionist/sort-imports': ['error', {
         type: 'alphabetical',
         order: 'asc',
         ignoreCase: true,
         newlinesBetween: 1,
         groups: [
-          'type-import',                                    // import type { ... }
-          ['value-builtin', 'value-external'],              // react, react-dom, librairies
-          'value-internal',                                 // alias (@/..., ~/...)
-          ['value-parent', 'value-sibling', 'value-index'], // composants .tsx/.ts du projet
-          'side-effect',                                    // import './polyfill'
-          'value-style',                                    // import styles from './X.module.css'
-          'side-effect-style',                              // import './index.css'
+          'type-import',
+          ['value-builtin', 'value-external'],
+          'value-internal',
+          ['value-parent', 'value-sibling', 'value-index'],
+          'side-effect',
+          'value-style',
+          'side-effect-style',
           'unknown',
         ],
       }],
