@@ -12,6 +12,7 @@ export interface User {
 export interface UserAccount extends User {
   email: string;
   personalInformation?: PersonalInformation;
+  createdAt: string;
 }
 
 export interface PersonalInformation {
@@ -28,11 +29,13 @@ export interface Server {
   iconUrl?: string;
   bannerUrl?: string;
   ownerId: Id;
+  createdAt: string;
 }
 
 export interface Member {
   id: Id;
   userId: Id;
+  serverId: Id;
   nickname?: string;
   joinedAt: string;
 }
@@ -43,6 +46,7 @@ export interface Channel {
   name: string;
   type: ChannelType;
   position: number;
+  createdAt: string;
 }
 
 export interface Message {
@@ -52,4 +56,15 @@ export interface Message {
   content: string;
   createdAt: string;
   editedAt?: string;
+}
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface RegisterPayload {
+  username: string;
+  email: string;
+  password: string;
 }
