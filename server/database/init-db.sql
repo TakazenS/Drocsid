@@ -63,4 +63,12 @@ CREATE INDEX channels_server_idx   ON channels (server_id, position);
 CREATE INDEX messages_channel_idx  ON messages (channel_id, created_at DESC);
 CREATE INDEX messages_author_idx   ON messages (author_id);
 
+CREATE TABLE session (
+  sid    varchar      PRIMARY KEY,
+  sess   json         NOT NULL,
+  expire timestamp(6) NOT NULL
+);
+
+CREATE INDEX session_expire_idx ON session (expire);
+
 COMMIT;
