@@ -1,7 +1,46 @@
 .serverList {
   display: flex;
   flex-direction: column;
-  width: 70px;
-  padding: 8px;
-  background-color: var(--bg-primary);
+  align-items: center;
+  width: 72px;
+  padding: 12px 0;
+  background-color: var(--surface-panel);
+  border-right: 1px solid var(--border);
+}
+
+.servers {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.logout {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background-color: var(--surface-input);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.logout:focus-visible {
+  outline: 2px solid var(--pin);
+  outline-offset: 2px;
+}
+
+.logout:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
