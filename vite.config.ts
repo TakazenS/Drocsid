@@ -9,6 +9,7 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] })
   ],
   server: {
+    allowedHosts: ['.trycloudflare.com'],
     proxy: {
       '/api': 'http://localhost:3001',
     },
