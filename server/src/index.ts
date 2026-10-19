@@ -40,12 +40,12 @@ app.use('/api/auth', authRoutes);
 
 // GET /api/health
 app.get('/api/health', async (_req, res) => {
-  const TIMESTAMP = (new Date).toISOString();
+  const timestamp = (new Date).toISOString();
   try {
     await queryOne('SELECT 1;');
-    res.json({ status: 'connected', message: 'Database connexion successfuly established!', timestamp: TIMESTAMP });
+    res.json({ status: 'connected', message: 'Database connection successfully established!', timestamp });
   } catch {
-    res.json({ status: 'unreachable', message: 'Database connexion failed.', timestamp: TIMESTAMP });
+    res.status(503).json({ status: 'unreachable', message: 'Database connection failed.', timestamp });
   }
 });
 

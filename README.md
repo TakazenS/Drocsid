@@ -144,14 +144,22 @@ The `.env` files are ignored by Git. Only the `.env.example` templates are commi
 ### Front end (`.env`)
 
 ```dotenv
-VITE_APP_NAME="APP_NAME"
+VITE_APP_TITLE="APP_NAME"
 VITE_APP_DESCRIPTION="APP_DESCRIPTION"
+VITE_APP_IMAGE="APP_IMAGE"
+VITE_APP_URL="APP_URL"
+VITE_APP_TYPE="APP_TYPE"
 ```
 
-| Variable               | Description                    |
-| ---------------------- | ------------------------------ |
-| `VITE_APP_NAME`        | Application name               |
-| `VITE_APP_DESCRIPTION` | Short application description  |
+| Variable               | Description                                                              |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `VITE_APP_TITLE`       | Application name, used as the page title and the `og:title` tag          |
+| `VITE_APP_DESCRIPTION` | Short description, used for the meta description and `og:description`    |
+| `VITE_APP_IMAGE`       | Preview image for link sharing (`og:image`), as an absolute URL          |
+| `VITE_APP_URL`         | Public address of the app (`og:url`), as an absolute URL                 |
+| `VITE_APP_TYPE`        | Open Graph type (`og:type`), for example `website`                       |
+
+These values are injected into `index.html` at build time. They control how a link to Drocsid looks when it is shared in a chat or on social media ([Open Graph protocol](https://ogp.me/)). The `og:image` and `og:url` tags are currently commented out in `index.html`.
 
 ### Server (`server/.env`)
 
@@ -232,7 +240,7 @@ npm run dev
 
 Run the server from the `server/` folder, because it loads `server/.env` from the current directory.
 
-Check that the API and the database are connected: <http://localhost:3001/api/health> should return `{"status":"ok", ...}`.
+Check that the API and the database are connected: <http://localhost:3001/api/health> should return `{"status":"connected", ...}`. If the database cannot be reached, the status is `unreachable`.
 
 ### Scripts
 
@@ -296,6 +304,7 @@ The address changes on every launch. `vite.config.ts` already allows `*.trycloud
 - [x] Logout button
 - [x] Light and dark themes with a switcher
 - [x] README and MIT license
+- [x] Open Graph metadata for link previews
 - [ ] `GET /api/me/servers` and server list in the sidebar
 - [ ] Channels and messages
 - [ ] Real time with WebSocket
