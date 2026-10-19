@@ -2,8 +2,6 @@ import connectPgSimple from 'connect-pg-simple';
 import express from 'express';
 import session from 'express-session';
 
-import { queryOne } from './db.ts';
-
 process.loadEnvFile();
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -11,8 +9,9 @@ if (!SESSION_SECRET) {
   throw new Error('SESSION_SECRET is missing in server/.env');
 }
 
-const { pool } = await import('./db.ts');
+const { pool, queryOne } = await import('./db.ts');
 const { authRoutes } = await import('./routes/authRoutes.ts');
+const { meRoutes } = await import('./routes/meRoutes.ts');
 
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
@@ -37,6 +36,7 @@ app.use(session({
 }));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/me', meRoutes);
 
 // GET /api/health
 app.get('/api/health', async (_req, res) => {
