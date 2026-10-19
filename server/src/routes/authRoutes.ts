@@ -23,6 +23,10 @@ const USER_ACCOUNT_COLUMNS = `
   created_at AS "createdAt"
 `;
 
+function isUniqueViolation(error: unknown): boolean {
+  return typeof error === 'object' && error != null && 'code' in error && error.code === '23505';
+}
+
 function startSession(req: Request, userId: string): Promise<void> {
   return new Promise((resolve, reject) => {
     req.session.regenerate((regenerateErr) => {
@@ -42,10 +46,6 @@ async function verifyPassword(hash: string, password: string): Promise<boolean> 
   } catch {
     return false;
   }
-}
-
-function isUniqueViolation(error: unknown): boolean {
-  return typeof error === 'object' && error != null && 'code' in error && error.code === '23505';
 }
 
 // POST /api/auth/register
@@ -154,5 +154,5 @@ authRoutes.get('/me', async (req, res) => {
     return;
   }
 
-  res.json(user);
+  res.status(200).json(user);
 });

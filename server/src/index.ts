@@ -2,6 +2,8 @@ import connectPgSimple from 'connect-pg-simple';
 import express from 'express';
 import session from 'express-session';
 
+import { queryOne } from './db.ts';
+
 process.loadEnvFile();
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -36,10 +38,15 @@ app.use(session({
 
 app.use('/api/auth', authRoutes);
 
+// GET /api/health
 app.get('/api/health', async (_req, res) => {
-  const result = await pool.query<{ now: Date; }>('SELECT now()');
-
-  res.json({ status: 'ok', databaseTime: result.rows[0].now });
+  const TIMESTAMP = (new Date).toISOString();
+  try {
+    await queryOne('SELECT 1;');
+    res.json({ status: 'connected', message: 'Database connexion successfuly established!', timestamp: TIMESTAMP });
+  } catch {
+    res.json({ status: 'unreachable', message: 'Database connexion failed.', timestamp: TIMESTAMP });
+  }
 });
 
 app.listen(port, () => {
