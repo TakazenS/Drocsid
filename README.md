@@ -74,84 +74,35 @@ React 19 + Vite (:5173)  →  /api proxy  →  Express 5 (:3001)  →  pg  →  
 
 ```text
 Drocsid/
-├── .vscode/
-│   └── settings.json                           # Shared editor settings (format on save, LF)
-├── public/                                     # Static assets served as-is
-│   ├── favicon.svg                             # Browser tab icon
-│   └── icons.svg                               # SVG icons
-├── server/                                     # Back end (Express API)
+├── public/               # Static assets (favicon, icons)
+├── server/               # Back end (Express API)
 │   ├── database/
-│   │   ├── dev/                                # Development-only SQL scripts, in order
-│   │   │   ├── 1-init-data.sql                 # Demo data
-│   │   │   └── 2-create-user-servers.sql       # Adds your account to demo servers
-│   │   └── init-db.sql                         # Database schema (required, run first)
+│   │   ├── dev/          # Development-only SQL scripts, in order
+│   │   └── init-db.sql   # Database schema (required, run first)
 │   ├── src/
-│   │   ├── middlewares/
-│   │   │   └── requireAuth.ts                  # Rejects requests without a session (401)
-│   │   ├── routes/
-│   │   │   ├── authRoutes.ts                   # /api/auth: register, login, logout
-│   │   │   └── meRoutes.ts                     # /api/me: signed-in user and their servers
-│   │   ├── types/
-│   │   │   └── express-session.d.ts            # Adds userId to the session type
-│   │   ├── db.ts                               # PostgreSQL pool and query helpers
-│   │   ├── helpers.ts                          # Shared SQL columns and error helpers
-│   │   └── index.ts                            # Entry point: sessions, routes, health check
-│   ├── .env.example                            # Server environment template
-│   ├── package.json                            # Server dependencies and scripts
-│   └── tsconfig.json                           # Server TypeScript config
-├── shared/                                     # Code shared by the front end and the server
-│   ├── types/
-│   │   ├── interfaces.ts                       # Data models and API payloads
-│   │   └── types.ts                            # Base types (Id, UserStatus, ChannelType)
-│   └── validations/
-│       ├── password.ts                         # Password rules
-│       └── user.ts                             # Username and email rules
-├── src/                                        # Front end (React)
-│   ├── api/
-│   │   ├── auth.ts                             # Auth API calls
-│   │   └── servers.ts                          # Server API calls
-│   ├── auth/
-│   │   ├── Auth.tsx                            # Route guard for signed-in users
-│   │   ├── AuthContext.ts                      # Auth context and types
-│   │   ├── AuthProvider.tsx                    # Auth state: current user, login, logout
-│   │   ├── AuthScreens.module.css              # Loading screen styles
-│   │   ├── Guest.tsx                           # Route guard for guests
-│   │   └── useAuth.ts                          # Hook to read the auth context
-│   ├── components/
-│   │   ├── ThemeToggle.module.css
-│   │   └── ThemeToggle.tsx                     # System / Light / Dark switcher
-│   ├── layout/
-│   │   ├── MainView.module.css
-│   │   ├── MainView.tsx                        # Main content area
-│   │   ├── ServerList.module.css
-│   │   └── ServerList.tsx                      # Server sidebar and logout button
-│   ├── pages/
-│   │   └── auth/
-│   │       ├── Auth.module.css                 # Shared styles for the auth pages
-│   │       ├── AuthShowcase.tsx                # Decorative chat bubbles panel
-│   │       ├── LoginPage.tsx                   # Sign-in page
-│   │       └── RegisterPage.tsx                # Sign-up page
-│   ├── theme/
-│   │   ├── ThemeContext.ts                     # Theme context and types
-│   │   ├── ThemeProvider.tsx                   # Applies and stores the theme
-│   │   └── useTheme.ts                         # Hook to read the theme context
-│   ├── App.module.css
-│   ├── App.tsx                                 # Signed-in layout
-│   ├── helpers.ts                              # Fetch helpers (getJson, postJson)
-│   ├── index.css                               # Global styles and color tokens
-│   └── index.tsx                               # Entry point: providers and routes
-├── .env.example                                # Front-end environment template
-├── .gitattributes                              # Line endings (LF)
-├── .gitignore
-├── eslint.config.js                            # ESLint rules
-├── index.html                                  # HTML entry, meta and Open Graph tags
-├── LICENSE
-├── package.json                                # Front-end dependencies and scripts
-├── README.md
-├── tsconfig.app.json                           # TypeScript config for src/
-├── tsconfig.json                               # TypeScript project references
-├── tsconfig.node.json                          # TypeScript config for vite.config.ts
-└── vite.config.ts                              # Vite config: React Compiler, /api proxy
+│   │   ├── middlewares/  # Express middlewares (requireAuth)
+│   │   ├── routes/       # API routes (/api/auth, /api/me)
+│   │   ├── types/        # Type augmentations (express-session)
+│   │   ├── db.ts         # PostgreSQL pool and query helpers
+│   │   └── index.ts      # Server entry point
+│   ├── .env.example      # Server environment template
+│   └── package.json      # Server dependencies and scripts
+├── shared/               # Code shared by the front end and the server
+│   ├── types/            # Data models and API payloads
+│   └── validations/      # Password, username and email rules
+├── src/                  # Front end (React)
+│   ├── api/              # API calls
+│   ├── auth/             # Auth context, provider and route guards
+│   ├── components/       # Reusable components
+│   ├── layout/           # App layout (server list, main view)
+│   ├── pages/            # Pages (login, register)
+│   ├── theme/            # Theme context, provider and hook
+│   ├── index.css         # Global styles and color tokens
+│   └── index.tsx         # Front-end entry point: providers and routes
+├── .env.example          # Front-end environment template
+├── index.html            # HTML entry, meta and Open Graph tags
+├── package.json          # Front-end dependencies and scripts
+└── vite.config.ts        # Vite config (React Compiler, /api proxy)
 ```
 
 ## Getting started
@@ -340,7 +291,7 @@ The scripts in `server/database/dev/` are a log of the queries run during develo
 >
 > The demo accounts use a placeholder hash (`fake-hash`), so they **cannot log in**. Create a real account from the register page.
 >
-> Before running `3-create-user-servers.sql`, replace the email address in it with the one of your account.
+> Before running `2-create-user-servers.sql`, replace the email address in it with the one of your account.
 
 ## Scripts
 
