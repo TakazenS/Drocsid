@@ -3,6 +3,7 @@ import type { ChannelType, Id, UserStatus } from './types.ts';
 export interface User {
   id: Id;
   username: string;
+  displayName: string;
   bio?: string;
   avatarUrl?: string;
   bannerUrl?: string;
