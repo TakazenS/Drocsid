@@ -4,8 +4,8 @@ import type { Request } from 'express';
 import * as argon2 from 'argon2';
 import { Router } from 'express';
 
-import { PASSWORD_REGEX, PASSWORD_RULES_MESSAGE } from '../../../shared/validation/password.ts';
-import { USERNAME_REGEX, USERNAME_RULES_MESSAGE, EMAIL_REGEX, EMAIL_RULES_MESSAGE } from '../../../shared/validation/user.ts';
+import { PASSWORD_REGEX, PASSWORD_RULES_MESSAGE } from '../../../shared/validations/password.ts';
+import { USERNAME_REGEX, USERNAME_RULES_MESSAGE, EMAIL_REGEX, EMAIL_RULES_MESSAGE } from '../../../shared/validations/user.ts';
 import { USER_ACCOUNT_COLUMNS, isUniqueViolation } from '../helpers.ts';
 
 export const authRoutes = Router();

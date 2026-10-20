@@ -3,7 +3,7 @@ import type { UserAccount, Server } from '../../../shared/types/interfaces.ts';
 import { Router } from 'express';
 
 import { USER_ACCOUNT_COLUMNS } from '../helpers.ts';
-import { requireAuth } from '../middleware/requireAuth.ts';
+import { requireAuth } from '../middlewares/requireAuth.ts';
 
 export const meRoutes = Router();
 const { queryRows, queryOne } = await import('../db.ts');
