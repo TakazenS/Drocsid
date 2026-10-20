@@ -6,7 +6,7 @@ import {
   PASSWORD_MIN_LENGTH,
   PASSWORD_REGEX,
   PASSWORD_RULES_MESSAGE,
-} from '../../../shared/validation/password.ts';
+} from '../../../shared/validations/password.ts';
 import { useAuth } from '../../auth/useAuth.ts';
 import ThemeToggle from '../../components/ThemeToggle.tsx';
 import AuthShowcase from './AuthShowcase.tsx';
