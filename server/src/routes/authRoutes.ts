@@ -6,10 +6,10 @@ import { Router } from 'express';
 
 import { PASSWORD_REGEX, PASSWORD_RULES_MESSAGE } from '../../../shared/validation/password.ts';
 import { USERNAME_REGEX, USERNAME_RULES_MESSAGE, EMAIL_REGEX, EMAIL_RULES_MESSAGE } from '../../../shared/validation/user.ts';
-import { queryOne } from '../db.ts';
 import { USER_ACCOUNT_COLUMNS, isUniqueViolation } from '../helpers.ts';
 
 export const authRoutes = Router();
+const { queryOne } = await import('../db.ts');
 
 function startSession(req: Request, userId: string): Promise<void> {
   return new Promise((resolve, reject) => {

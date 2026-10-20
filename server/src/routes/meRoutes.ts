@@ -2,11 +2,11 @@ import type { UserAccount, Server } from '../../../shared/types/interfaces.ts';
 
 import { Router } from 'express';
 
-import { queryRows, queryOne } from '../db.ts';
-import { requireAuth } from '../middleware/requireAuth.ts';
 import { USER_ACCOUNT_COLUMNS } from '../helpers.ts';
+import { requireAuth } from '../middleware/requireAuth.ts';
 
 export const meRoutes = Router();
+const { queryRows, queryOne } = await import('../db.ts');
 
 meRoutes.use(requireAuth);
 
