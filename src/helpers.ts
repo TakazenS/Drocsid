@@ -17,11 +17,10 @@ export async function postJson<T>(url: string, body?: unknown): Promise<T> {
   return data as T;
 }
 
-export async function getJson<T>(url: string, body?: unknown): Promise<T> {
+export async function getJson<T>(url: string): Promise<T> {
   const response = await fetch(url, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    headers: { 'Accept': 'application/json' },
   });
 
   const data: unknown = await response.json().catch(() => null);
