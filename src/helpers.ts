@@ -18,7 +18,7 @@ export async function postJson<T>(url: string, body?: unknown): Promise<T> {
 }
 
 export async function getJson<T>(url: string, body?: unknown): Promise<T> {
-  const response = await fetch (url, {
+  const response = await fetch(url, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
