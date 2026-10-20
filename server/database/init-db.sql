@@ -6,6 +6,7 @@ CREATE TYPE channel_type AS ENUM ('text', 'voice');
 CREATE TABLE users (
   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   username      varchar(32)  NOT NULL UNIQUE,
+  display_name  varchar(32)  NOT NULL,
   email         varchar(254) NOT NULL,
   password_hash text         NOT NULL,
   bio           varchar(190),

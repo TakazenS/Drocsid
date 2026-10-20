@@ -2,11 +2,11 @@ BEGIN;
 
 TRUNCATE messages, channels, members, servers, users CASCADE;
 
-INSERT INTO users (id, username, email, password_hash, bio, status) VALUES
-  ('11111111-0000-0000-0000-000000000001', 'alice',   'alice@drocsid.dev',   'fake-hash', 'Créatrice de deux serveurs', 'online'),
-  ('11111111-0000-0000-0000-000000000002', 'bob',     'bob@drocsid.dev',     'fake-hash', 'Fan de jeux vidéo',          'idle'),
-  ('11111111-0000-0000-0000-000000000003', 'charlie', 'charlie@drocsid.dev', 'fake-hash', NULL,                         'dnd'),
-  ('11111111-0000-0000-0000-000000000004', 'diane',   'diane@drocsid.dev',   'fake-hash', 'Nouvelle ici',               'offline');
+INSERT INTO users (id, username, display_name, email, password_hash, bio, status) VALUES
+  ('11111111-0000-0000-0000-000000000001', 'alice',   'alice_d',   'alice@drocsid.dev',   'fake-hash', 'Créatrice de deux serveurs', 'online'),
+  ('11111111-0000-0000-0000-000000000002', 'bob',     'bob_d',     'bob@drocsid.dev',     'fake-hash', 'Fan de jeux vidéo',          'idle'),
+  ('11111111-0000-0000-0000-000000000003', 'charlie', 'charlie_d', 'charlie@drocsid.dev', 'fake-hash', NULL,                         'dnd'),
+  ('11111111-0000-0000-0000-000000000004', 'diane',   'diane_d',   'diane@drocsid.dev',   'fake-hash', 'Nouvelle ici',               'offline');
 
 INSERT INTO servers (id, name, description, owner_id) VALUES
   ('22222222-0000-0000-0000-000000000001', 'Dev React',     'Entraide React et TypeScript', '11111111-0000-0000-0000-000000000001'),
