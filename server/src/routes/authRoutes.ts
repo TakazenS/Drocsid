@@ -5,27 +5,11 @@ import * as argon2 from 'argon2';
 import { Router } from 'express';
 
 import { PASSWORD_REGEX, PASSWORD_RULES_MESSAGE } from '../../../shared/validation/password.ts';
+import { USERNAME_REGEX, USERNAME_RULES_MESSAGE, EMAIL_REGEX, EMAIL_RULES_MESSAGE } from '../../../shared/validation/user.ts';
 import { queryOne } from '../db.ts';
+import { USER_ACCOUNT_COLUMNS, isUniqueViolation } from '../helpers.ts';
 
 export const authRoutes = Router();
-
-const USERNAME_REGEX = /^[a-zA-Z0-9_.]{3,32}$/;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const USER_ACCOUNT_COLUMNS = `
-  id,
-  username,
-  email,
-  bio,
-  avatar_url AS "avatarUrl",
-  banner_url AS "bannerUrl",
-  status,
-  created_at AS "createdAt"
-`;
-
-function isUniqueViolation(error: unknown): boolean {
-  return typeof error === 'object' && error != null && 'code' in error && error.code === '23505';
-}
 
 function startSession(req: Request, userId: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -53,11 +37,11 @@ authRoutes.post('/register', async (req, res) => {
   const { username, email, password } = (req.body ?? {}) as Partial<RegisterPayload>;
 
   if (typeof username !== 'string' || !USERNAME_REGEX.test(username)) {
-    res.status(400).json({ error: 'Usernames use 3 to 32 letters, numbers, dots or underscores.' });
+    res.status(400).json({ error: `${USERNAME_RULES_MESSAGE}` });
     return;
   }
   if (typeof email !== 'string' || !EMAIL_REGEX.test(email.trim())) {
-    res.status(400).json({ error: 'Enter a valid email address.' });
+    res.status(400).json({ error: `${EMAIL_RULES_MESSAGE}` });
     return;
   }
   if (typeof password !== 'string' || !PASSWORD_REGEX.test(password)) {
@@ -70,10 +54,10 @@ authRoutes.post('/register', async (req, res) => {
   let user: UserAccount | null;
   try {
     user = await queryOne<UserAccount>(
-      `INSERT INTO users (username, email, password_hash)
-       VALUES ($1, $2, $3)
+      `INSERT INTO users (username, display_name, email, password_hash)
+       VALUES ($1, $2, $3, $4)
        RETURNING ${USER_ACCOUNT_COLUMNS}`,
-      [username, email.trim(), passwordHash],
+      [username, username, email.trim(), passwordHash],
     );
   } catch (error) {
     if (isUniqueViolation(error)) {
@@ -133,26 +117,4 @@ authRoutes.post('/logout', (req, res, next) => {
     res.clearCookie('connect.sid');
     res.status(204).end();
   });
-});
-
-// GET /api/auth/me
-authRoutes.get('/me', async (req, res) => {
-  const { userId } = req.session;
-
-  if (!userId) {
-    res.status(401).json({ error: 'Not logged in.' });
-    return;
-  }
-
-  const user = await queryOne<UserAccount>(
-    `SELECT ${USER_ACCOUNT_COLUMNS} FROM users WHERE id = $1`,
-    [userId],
-  );
-
-  if (!user) {
-    res.status(401).json({ error: 'Not logged in.' });
-    return;
-  }
-
-  res.status(200).json(user);
 });
