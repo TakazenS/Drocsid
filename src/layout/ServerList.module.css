@@ -8,12 +8,25 @@
   border-right: 1px solid var(--border);
 }
 
+.privateMessage {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  margin-bottom: 1em;
+  border-radius: 30%;
+  background-color: var(--surface-input);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
 .servers {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 1em;
   width: 100%;
   overflow-y: auto;
 }
@@ -24,7 +37,8 @@
   width: 48px;
   height: 48px;
   border: 1px solid var(--border);
-  border-radius: 50%;
+  margin-top: 1em;
+  border-radius: 30%;
   background-color: var(--surface-input);
   color: var(--text-muted);
   cursor: pointer;

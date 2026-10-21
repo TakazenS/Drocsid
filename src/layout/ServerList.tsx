@@ -4,6 +4,7 @@ import { useState, useTransition, useEffect } from 'react';
 import { LuLogOut } from 'react-icons/lu';
 
 import { getServerList } from '../api/servers.ts';
+import ServerIcon from '../components/ServerIcon.tsx';
 import { useAuth } from '../hooks/useAuth.ts';
 
 import styles from './ServerList.module.css';
@@ -31,9 +32,19 @@ export default function ServerList() {
 
   return (
     <nav className={styles.serverList} aria-label="Servers">
+
+      <button
+        type="button"
+        className={styles.privateMessage}
+        onClick={() => console.log("Private Message")}
+        title="Log out"
+      >
+        <LuLogOut size={20} aria-hidden="true" />
+      </button>
+
       <div className={styles.servers}>
         {serverList.map((s) => (
-          <p key={s.id}>{s.name}</p>
+          <ServerIcon key={s.id} serverIconUrl={s.iconUrl} serverName={s.name} />
         ))}
       </div>
 
@@ -42,7 +53,6 @@ export default function ServerList() {
         className={styles.logout}
         onClick={handleLogout}
         disabled={isLoggingOut}
-        aria-label="Log out"
         title="Log out"
       >
         <LuLogOut size={20} aria-hidden="true" />
