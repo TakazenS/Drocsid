@@ -1,8 +1,8 @@
 import { useActionState } from 'react';
 import { Link } from 'react-router';
 
-import { useAuth } from '../../hook/useAuth.ts';
 import ThemeToggle from '../../components/ThemeToggle.tsx';
+import { useAuth } from '../../hooks/useAuth.ts';
 import AuthShowcase from './AuthShowcase.tsx';
 
 import styles from './Auth.module.css';

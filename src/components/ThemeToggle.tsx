@@ -3,7 +3,7 @@ import type { IconType } from 'react-icons';
 
 import { LuMonitor, LuMoon, LuSun } from 'react-icons/lu';
 
-import { useTheme } from '../hook/useTheme.ts';
+import { useTheme } from '../hooks/useTheme.ts';
 
 import styles from './ThemeToggle.module.css';
 
