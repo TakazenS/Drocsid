@@ -4,7 +4,7 @@ import { useState, useTransition, useEffect } from 'react';
 import { LuLogOut } from 'react-icons/lu';
 
 import { getServerList } from '../api/servers.ts';
-import { useAuth } from '../auth/useAuth.ts';
+import { useAuth } from '../hooks/useAuth.ts';
 
 import styles from './ServerList.module.css';
 
