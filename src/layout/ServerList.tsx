@@ -1,7 +1,7 @@
 import type { Server } from '../../shared/types/interfaces.ts';
 
 import { useState, useTransition, useEffect } from 'react';
-import { LuLogOut } from 'react-icons/lu';
+import { LuLogOut, LuMessageCircle, } from 'react-icons/lu';
 
 import { getServerList } from '../api/servers.ts';
 import ServerIcon from '../components/ServerIcon.tsx';
@@ -35,11 +35,11 @@ export default function ServerList() {
 
       <button
         type="button"
-        className={styles.privateMessage}
-        onClick={() => console.log("Private Message")}
-        title="Log out"
+        className={styles.message}
+        onClick={() => console.log("Messages")}
+        title="Mesages"
       >
-        <LuLogOut size={20} aria-hidden="true" />
+        <LuMessageCircle size={20} aria-hidden="true" />
       </button>
 
       <div className={styles.servers}>

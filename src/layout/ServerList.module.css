@@ -8,7 +8,7 @@
   border-right: 1px solid var(--border);
 }
 
-.privateMessage {
+.message {
   display: grid;
   place-items: center;
   width: 48px;

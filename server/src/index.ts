@@ -12,6 +12,7 @@ if (!SESSION_SECRET) {
 const { pool, queryOne } = await import('./db.ts');
 const { authRoutes } = await import('./routes/authRoutes.ts');
 const { meRoutes } = await import('./routes/meRoutes.ts');
+const { mediaRoutes } = await import('./routes/mediaRoutes.ts');
 
 const app = express();
 const port = Number(process.env.PORT ?? 3001);
@@ -37,6 +38,7 @@ app.use(session({
 
 app.use('/api/auth', authRoutes);
 app.use('/api/me', meRoutes);
+app.use('/api/media', mediaRoutes);
 
 // GET /api/health
 app.get('/api/health', async (_req, res) => {
