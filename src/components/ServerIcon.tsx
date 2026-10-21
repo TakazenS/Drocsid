@@ -10,7 +10,7 @@ export default function ServerIcon(props: Props) {
 
   return (
     <span className={styles.iconLayout} onClick={() => console.log(`${serverName}`)}>
-      <img src={serverIconUrl} />
+      {serverIconUrl && <img src={serverIconUrl} />}
     </span>
   );
 }
