@@ -1,13 +1,27 @@
-import { useTransition } from 'react';
+import type { Server } from '../../shared/types/interfaces.ts';
+
+import { useState, useTransition, useEffect } from 'react';
 import { LuLogOut } from 'react-icons/lu';
 
+import { getServerList } from '../api/servers.ts';
 import { useAuth } from '../auth/useAuth.ts';
 
 import styles from './ServerList.module.css';
 
 export default function ServerList() {
   const { logout } = useAuth();
+  const [serverList, setServerList] = useState<Server[]>([]);
   const [isLoggingOut, startTransition] = useTransition();
+
+  useEffect(() => {
+    getServerList()
+      .then((data) => {
+        setServerList(data);
+      })
+      .catch((error) => {
+        console.error('Error on fetching sever list : ', error);
+      });
+  }, []);
 
   function handleLogout() {
     startTransition(async () => {
@@ -18,7 +32,9 @@ export default function ServerList() {
   return (
     <nav className={styles.serverList} aria-label="Servers">
       <div className={styles.servers}>
-        {/* Server list */}
+        {serverList.map((s) => (
+          <p key={s.id}>{s.name}</p>
+        ))}
       </div>
 
       <button
